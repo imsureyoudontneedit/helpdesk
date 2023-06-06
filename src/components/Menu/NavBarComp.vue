@@ -1,0 +1,86 @@
+<template>
+  <div class="navbar_comp">
+    <nav class="navbar navbar-light">
+        <div class="container-fluid justify-content-around">
+            <a class="navbar-brand"><img src="../../assets/img/logo.png" alt="Help Desk"></a>
+            <form class="d-flex formWrapper">
+              <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+            </form>
+            <div class="user" v-if="accessToken == true">
+              <div class="username"></div>
+              <img src="" alt="">
+            </div>
+            
+            <div class="d-flex">
+
+                <button type="button" class="btn btn-light" v-if="$store.state.accessUserToken != null" @click='remove' onclick="location.reload();">Выйти</button>
+                <router-link to='login' v-if="$store.state.accessUserToken == null"><button class="btn btn-light" >Войти</button></router-link>
+            </div>
+        </div>
+    </nav>
+  </div>
+</template>
+
+<script>
+import store from '@/store'
+import router from '@/router'
+export default {
+    data() {
+      return {
+        accessUserToken: this.$cookies.get("accessUserToken")
+      }
+    },
+    methods: {
+      remove() {
+        this.$cookies.remove("accessUserToken")
+        this.$cookies.remove("refreshUserToken")
+        store.commit('accessUserToken','')
+        store.commit('refreshUserToken','')
+      }
+    },
+    mounted() {
+      const accessToken=this.$cookies.get('accessUserToken');
+      const refreshToken=this.$cookies.get('refreshUserToken');
+      if(!accessToken || !refreshToken){
+        router.push('/login');
+      }else{
+        store.commit('accessUserToken', accessToken);
+        store.commit('refreshUserToken',refreshToken);
+      }
+        
+    }
+}
+</script>
+
+<style scoped>
+  .navbar_comp {
+    font-family: Montserrat-SemiBold;
+    color: #424242;
+  }
+  .navbar{
+    background-color: #63B0DB;
+    height: 130px;
+  }
+
+  .formWrapper {
+    width: 47%;
+  }
+
+  .form-control {
+    height: 60px;
+    min-width: 100px;
+    min-height: 20px;
+    border-radius: 30px;
+    background: url(../../assets/img/icon/search.png) no-repeat scroll 20px 7px;
+    background-color: white;
+    padding-left: 90px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 30px;
+    width: 120px;
+    height: 60px;
+    font-size: 25px;
+  }
+</style>
