@@ -13,12 +13,33 @@
 import FooterCompVue from './components/Menu/FooterComp'
 import LeftMenuNavVue from './components/Menu/LeftMenuNav'
 import NavBarComp from './components/Menu/NavBarComp'
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
     NavBarComp,
     LeftMenuNavVue,
     FooterCompVue,
+  },
+  mounted() {
+      setInterval(this.refreshUser, 240000);
+  },
+  methods: {
+    async refreshUser() {
+      const vm = this
+      await axios.post('http://banaworld.ru:5003/Auth/api/Auth/Refresh', JSON.stringify(this.$cookies.get('refreshUserToken')), {
+        headers: {
+                    'Content-Type': 'application/json'
+        }
+      })
+      .then((response)=>{  
+                    return response;
+                })
+      .then(function(response) {
+        vm.$cookies.set("accessUserToken",response.data.accessToken);
+        vm.$cookies.set("refreshUserToken",response.data.refreshToken);
+      })
+    }
   }
 }
 </script>

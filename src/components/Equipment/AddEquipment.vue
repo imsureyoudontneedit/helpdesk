@@ -53,7 +53,6 @@ export default {
                 description: '',
                 date: '',
                 model: '',
-                binderId: this.$route.params.id,
             equipmentId: '',
             file: ''
         }
@@ -67,7 +66,7 @@ export default {
                 purchaseDate: this.date,
                 model: this.model,
                 typeId: this.type,
-                binderId: this.binderId
+                binderId: this.$route.params.id
             },{
                  headers: {
                     'Content-Type': 'application/json',
@@ -79,7 +78,7 @@ export default {
             });
             
             let formData = new FormData();
-                console.log(formData);
+                // console.log(formData);
             formData.append("File", this.file)
             formData.append("EquipmentId", this.equipmentId)
 
