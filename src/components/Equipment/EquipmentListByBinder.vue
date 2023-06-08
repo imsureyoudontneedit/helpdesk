@@ -2,9 +2,24 @@
   <div class="wrapper mt-4 ms-5 w-100">
     <h2> Оборудование аудитории {{`${this.binder.name}`}}</h2>
     <router-link :to="`/createEquipment/${$route.params.id}`" class="btn">Добавить оборудование</router-link>
+    <div class="generator mt-3">
+          <button class="btn btn-sm" @click="showModalToggle">Сгенирировать qr-код</button>
+          <div class="qr-modal" v-if="showModal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">QR-код</h5>
+                </div>
+                <div class="modal-body">
+                  <qrcode-vue class="qr-code" :value="qr" :size="size"></qrcode-vue>
+                </div>
+              </div>
+            </div>
+            </div>
+    </div>
     <div class="d-flex justify-content-center flex-wrap">
         <div class=" ms-3 mb-4" v-for="equipmentbyBind in equipment" :key="equipmentbyBind">
-            <div class="card text-center" style="Изображение оборудования">
+            <div class="card text-center" style="">
                 <div class="card-body">
 
             <h5 class="card-title">{{ equipmentbyBind.title }}</h5>
@@ -21,7 +36,7 @@
 
 <script>
 import axios from 'axios'
-
+import QrcodeVue from 'qrcode.vue'
 export default {
     props: {
         binderIDatt: String
@@ -31,9 +46,15 @@ export default {
             $route: this.$route,
             equipment: [],
             binder: '',
+            qr: `http://banaworld.ru:5003/Equipment/Api/Binder/${this.$route.params.id}`,
+            showModal: false,
+            size: 200,
         }
     },
     methods: {
+        async getBinder() {
+
+        },
         async getEquipment(){
             const response = await axios.get('http://89.110.53.87:5003/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`, {
                 headers: {
@@ -42,39 +63,20 @@ export default {
             
             this.binder=response.data[0].binder
             this.equipment = response.data
-            this.getAttachesById()
+            // this.getAttachesById()
             // this.binder=response.data.binder
 
         },
-        async getAttachesById(){
-
-            this.equipmentList.forEach((equipment) =>{
-
-
-              equipment.attaches.forEach(async(attacheID) => {
-                await axios.get(`http://89.110.53.87:5003/Equipment/Api/Attach/${attacheID}`, {
-                headers: {
-                    "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
-                responseType: 'blob'
-            }, ).then( (response)=>
-            {
-                let src=URL.createObjectURL(response.data)
-                
-                if (!src){
-                    src="https://via.placeholder.com/250"
-                }
-                equipment.imgSrc= src
-                console.log(equipment.imgSrc)
-            this.attaches.push(response.data)
-        })
-            })  
-            });
-                 
-        },
+        showModalToggle(){
+            this.showModal =!this.showModal
+        }
     },
     mounted() {
         this.getEquipment();
         console.log(this.binderIDatt)
+    },
+    components: {
+        QrcodeVue
     }
 
 }

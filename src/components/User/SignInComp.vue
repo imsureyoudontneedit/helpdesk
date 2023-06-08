@@ -39,11 +39,11 @@ export default {
                 .then(function(response) {
                     const accessToken = response.data.accessToken;
                     const refreshToken = response.data.refreshToken;
-                vm.$cookies.set("accessUserToken",refreshToken);
-                vm.$cookies.set("refreshUserToken",refreshToken);
-                if(response.status == '200'){
-                        location.assign("/#/equipmentList")
-                }
+                    vm.$cookies.set("accessUserToken",accessToken);
+                    vm.$cookies.set("refreshUserToken",refreshToken);
+                    if(response.status == '200'){
+                            location.assign("/#/equipmentList")
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);

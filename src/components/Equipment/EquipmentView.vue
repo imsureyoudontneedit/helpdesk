@@ -39,20 +39,10 @@
                 <img :src="imgSrc" alt="img" />
             </div>
         </div>
-        
-        
-        
-
     </div>
-    <!-- {{ img }} -->
-    <!-- {{ attaches }} -->
-    <!-- {{ equipment }} -->
-
-
-
-
-    <!-- <qrcode-vue :value="qr"></qrcode-vue> -->
-    
+    <div class="">
+        <button class="btnDelete btn-sm mt-3" @click="deleteEquipment">Удалить оборудования</button>
+    </div>
   </div>
 </template>
 
@@ -70,7 +60,7 @@ export default {
             binder:{},
             size: 200,
             imgSrc:"",
-            qr: `http://77.232.44.8:49008/#/equipmentView/${this.$route.params.id}`,
+            qr: `http://banaworld.ru:5003/Equipment/Api/Equipment/${this.$route.params.id}`,
         }
     },
     methods: {
@@ -104,6 +94,18 @@ export default {
         },
         showModalToggle(){
             this.showModal =!this.showModal
+        },
+        async deleteEquipment() {
+            await axios.delete(`http://banaworld.ru:5003/Equipment/Api/Equipment/${this.equipment.id}`,{
+                 headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + this.$cookies.get('accessUserToken')
+                }
+            }).then((response) => {
+                if(response.status == '200')
+                    location.assign("/#/equipmentList")
+            }) 
+            // 
         }
     },
     mounted() {
@@ -160,6 +162,14 @@ export default {
     border-color: none;
     width: max-content;
     border-radius: 25px;
+}
+
+.btnDelete{
+    background-color: #de4141;
+    border-color: none;
+    width: max-content;
+    border-radius: 25px;
+    color: white;
 }
 </style>
 

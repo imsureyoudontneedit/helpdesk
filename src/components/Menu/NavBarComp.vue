@@ -13,7 +13,7 @@
             
             <div class="d-flex">
 
-                <button type="button" class="btn btn-light" v-if="$store.state.accessUserToken != null" @click='remove' onclick="location.reload();">Выйти</button>
+                <button type="button" class="btn btn-light" v-if="this.$cookies.get('accessUserToken') != null" @click='remove' onclick="location.reload();">Выйти</button>
                 <router-link to='login' v-if="$store.state.accessUserToken == null"><button class="btn btn-light" >Войти</button></router-link>
             </div>
         </div>
