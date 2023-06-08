@@ -1,4 +1,4 @@
-<template >
+<template binderId="binderIDatt">
 <div class="cont">
     <div class="header"><h2>Добавить оборудование</h2></div>
     <div class="formWrapper">
@@ -46,6 +46,7 @@
 <script>
 import axios from 'axios'
 export default {
+    
     data() {
         return {
                 type: '',
@@ -54,6 +55,7 @@ export default {
                 date: '',
                 model: '',
             equipmentId: '',
+            binderId: '',
             file: ''
         }
     },
@@ -66,7 +68,7 @@ export default {
                 purchaseDate: this.date,
                 model: this.model,
                 typeId: this.type,
-                binderId: this.$route.params.id
+                binderId: this.$binderIdatt
             },{
                  headers: {
                     'Content-Type': 'application/json',

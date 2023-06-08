@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper mt-4 ms-5 w-100">
     <h2> Оборудование аудитории {{`${this.binder.name}`}}</h2>
-    <router-link :to="`/createEquipment/${this.$route.params.id}`" class="btn">Добавить оборудование</router-link>
+    <router-link :to="`/createEquipment/${$route.params.id}`" class="btn">Добавить оборудование</router-link>
     <div class="d-flex justify-content-center flex-wrap">
         <div class=" ms-3 mb-4" v-for="equipmentbyBind in equipment" :key="equipmentbyBind">
             <div class="card text-center" style="Изображение оборудования">
@@ -21,7 +21,11 @@
 
 <script>
 import axios from 'axios'
+
 export default {
+    props: {
+        binderIDatt: String
+    },
     data() {
         return {
             $route: this.$route,
@@ -69,8 +73,8 @@ export default {
         },
     },
     mounted() {
-        this.getEquipment()
-
+        this.getEquipment();
+        console.log(this.binderIDatt)
     }
 
 }
