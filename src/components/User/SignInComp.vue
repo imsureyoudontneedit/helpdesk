@@ -16,7 +16,6 @@
 
 <script>
 import axios from 'axios'
-import store from '@/store'
 export default {
     data() {
         return {
@@ -40,10 +39,8 @@ export default {
                 .then(function(response) {
                     const accessToken = response.data.accessToken;
                     const refreshToken = response.data.refreshToken;
-                vm.$cookies.set("accessUserToken",accessToken);
+                vm.$cookies.set("accessUserToken",refreshToken);
                 vm.$cookies.set("refreshUserToken",refreshToken);
-                store.commit('accessUserToken', accessToken);
-                store.commit('refreshUserToken', refreshToken);
                 if(response.status == '200'){
                         location.assign("/#/equipmentList")
                 }

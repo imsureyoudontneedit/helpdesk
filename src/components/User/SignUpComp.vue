@@ -40,7 +40,7 @@ export default {
                 .then(function(response) {
                     const accessToken = response.data.accessToken;
                     const refreshToken = response.data.refreshToken;
-                vm.$cookies.set("accessUserToken",accessToken);
+                vm.$cookies.set("accessUserToken",refreshToken);
                 vm.$cookies.set("refreshUserToken",refreshToken);
                 store.commit('accessUserToken', accessToken);
                 store.commit('refreshUserToken', refreshToken);

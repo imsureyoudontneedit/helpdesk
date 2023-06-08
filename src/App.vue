@@ -22,7 +22,7 @@ export default {
     FooterCompVue,
   },
   mounted() {
-      setInterval(this.refreshUser, 240000);
+      setInterval(this.refreshUser, 4*60*1000);
   },
   methods: {
     async refreshUser() {

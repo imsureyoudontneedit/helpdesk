@@ -70,7 +70,7 @@ export default {
             binder:{},
             size: 200,
             imgSrc:"",
-            qr: `http://banaworld:6660/#/equipmentView/${this.$route.params.id}`,
+            qr: `http://77.232.44.8:49008/#/equipmentView/${this.$route.params.id}`,
         }
     },
     methods: {
@@ -83,6 +83,7 @@ export default {
             this.attachesID = response.data.attaches
             this.binder=response.data.binder
             this.getAttachesById()
+            
         },
         async getAttachesById(){
 
