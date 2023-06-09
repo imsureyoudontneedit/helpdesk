@@ -14,6 +14,7 @@ import FooterCompVue from './components/Menu/FooterComp'
 import LeftMenuNavVue from './components/Menu/LeftMenuNav'
 import NavBarComp from './components/Menu/NavBarComp'
 import axios from 'axios'
+
 export default {
   name: 'App',
   components: {
@@ -21,24 +22,35 @@ export default {
     LeftMenuNavVue,
     FooterCompVue,
   },
-  mounted() {
-      setInterval(this.refreshUser, 4*60*1000);
+  data() {
+    return {
+      user: null,
+      refreshTokenTimeout: null
+    }
+  },
+  created() {
+    this.refreshToken()
   },
   methods: {
-    async refreshUser() {
-      const vm = this
-      await axios.post('http://banaworld.ru:5003/Auth/api/Auth/Refresh', JSON.stringify(this.$cookies.get('refreshUserToken')), {
-        headers: {
+    async refreshToken() {
+            const vm = this
+            this.user = await axios.post('http://banaworld.ru:5003/Auth/api/Auth/Refresh/', this.$cookies.get('refreshUserToken'),
+              {headers: {
                     'Content-Type': 'application/json'
-        }
-      })
-      .then((response)=>{  
-                    return response;
-                })
-      .then(function(response) {
-        vm.$cookies.set("accessUserToken",response.data.accessToken);
-        vm.$cookies.set("refreshUserToken",response.data.refreshToken);
-      })
+                }}
+              )
+            .then((response) => {
+              vm.$cookies.set("accessUserToken", response.data.accessToken)
+            });
+            this.startRefreshTokenTimer();
+        },
+    startRefreshTokenTimer() {
+              const jwtBase64 = this.$cookies.get('accessUserToken').split('.')[1];
+              const jwtToken = JSON.parse(atob(jwtBase64));
+    
+              const expires = new Date(jwtToken.exp * 1000);
+              const timeout = expires.getTime() - Date.now() - (60 * 1000);
+              this.refreshTokenTimeout = setTimeout(this.refreshToken, timeout);
     }
   }
 }

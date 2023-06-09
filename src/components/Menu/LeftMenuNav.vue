@@ -1,6 +1,6 @@
 <template>
     <div class="leftMenu">
-        <div class="wrapper" v-if='this.$cookies.get("accessUserToken")'>
+        <div class="wrapper">
             <div class="funcHeader">Функции</div>
             <ul class="list-group">
                 <li class="list-group-item"><router-link to='/equipmentList'> Просмотр оборудования</router-link></li>
