@@ -25,11 +25,16 @@ export default {
   data() {
     return {
       user: null,
-      refreshTokenTimeout: null
+      refreshTokenTimeout: null,
+      expires: null,
+      timer: '',
     }
   },
-  created() {
-    this.refreshToken()
+  mounted() {
+    if(this.$cookies.get('accessUserToken')) {
+      this.startRefreshTokenTimer();
+    }
+      // setInterval(this.startRefreshTokenTimer(), ((this.expires) + (3 * 60 * 60 * 10000)) - Date.now() - (60 * 1000))
   },
   methods: {
     async refreshToken() {
@@ -47,10 +52,7 @@ export default {
     startRefreshTokenTimer() {
               const jwtBase64 = this.$cookies.get('accessUserToken').split('.')[1];
               const jwtToken = JSON.parse(atob(jwtBase64));
-    
-              const expires = new Date(jwtToken.exp * 1000);
-              const timeout = expires.getTime() - Date.now() - (60 * 1000);
-              this.refreshTokenTimeout = setTimeout(this.refreshToken, timeout);
+              return this.expires = jwtToken.exp *1000;
     }
   }
 }

@@ -52,9 +52,6 @@ export default {
         }
     },
     methods: {
-        async getBinder() {
-
-        },
         async getEquipment(){
             const response = await axios.get('http://89.110.53.87:5003/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`, {
                 headers: {
@@ -73,7 +70,7 @@ export default {
     },
     mounted() {
         this.getEquipment();
-        console.log(this.binderIDatt)
+        
     },
     components: {
         QrcodeVue

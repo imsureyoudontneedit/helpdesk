@@ -42,7 +42,7 @@ export default {
                     vm.$cookies.set("accessUserToken",accessToken);
                     vm.$cookies.set("refreshUserToken",refreshToken);
                     if(response.status == '200'){
-                            location.assign("/#/equipmentList")
+                        location.assign("/#/equipmentList")
                     }
                 })
                 .catch(function (error) {

@@ -2,7 +2,7 @@
   <div class="navbar_comp">
     <nav class="navbar navbar-light">
         <div class="container-fluid justify-content-around">
-            <a class="navbar-brand"><img src="../../assets/img/logo.png" alt="Help Desk"></a>
+            <a class="navbar-brand"><img src="../../assets/img/logo.png" alt="Help Desk" class="nav_img"></a>
             <form class="d-flex formWrapper">
               <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
             </form>
@@ -32,8 +32,9 @@ export default {
     },
     methods: {
       remove() {
-        this.$cookies.remove("accessUserToken")
-        this.$cookies.remove("refreshUserToken")
+        const vm = this;
+        vm.$cookies.remove("accessUserToken")
+        vm.$cookies.remove("refreshUserToken")
         store.commit('accessUserToken','')
         store.commit('refreshUserToken','')
       }
@@ -60,8 +61,13 @@ export default {
   .navbar{
     background-color: #63B0DB;
     height: 130px;
+    width: 100%;
   }
 
+  .nav_img {
+    width: 20vw;
+    height: 12vw;
+  }
   .formWrapper {
     width: 47%;
   }
@@ -79,8 +85,8 @@ export default {
   .btn {
     border: none;
     border-radius: 30px;
-    width: 120px;
-    height: 60px;
-    font-size: 25px;
+    width: 15vw;
+    height: 7vw;
+    font-size: 3vw;
   }
 </style>

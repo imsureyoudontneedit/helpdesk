@@ -35,7 +35,7 @@
 <style scoped>
     .footer {
         width: 100%;
-        height: 500px;
+        height: max-content;
         background-color: #1E1E1E;
         color: #FFFFFF;
         text-align: left;
