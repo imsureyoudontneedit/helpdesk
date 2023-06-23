@@ -65,8 +65,8 @@ export default {
   }
 
   .nav_img {
-    width: 20vw;
-    height: 12vw;
+    width: clamp(1.5rem, 20vw, 12rem);
+    height: clamp(1.5rem, 12vw, 6rem);
   }
   .formWrapper {
     width: 47%;
@@ -85,8 +85,8 @@ export default {
   .btn {
     border: none;
     border-radius: 30px;
-    width: 15vw;
-    height: 7vw;
-    font-size: 3vw;
+    width: clamp(1.5rem, 15vw, 10rem);
+    height: clamp(1.5rem, 7vw, 4rem);
+    font-size: clamp(0.75rem, 3vw, 2rem);
   }
 </style>

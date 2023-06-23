@@ -1,6 +1,6 @@
 <template>
     <div class="leftMenu">
-        <div class="wrapper" v-show="this.$cookies.get('accessUserToken')">
+        <div class="wrapper" v-show="this.$cookies.get('accessUserToken') || this.$store.state.accessUserToken">
             <div class="funcHeader">Функции</div>
             <ul class="list-group">
                 <li class="list-group-item"><router-link to='/equipmentList'> Просмотр оборудования</router-link></li>
@@ -36,12 +36,12 @@
     }
 
     .funcHeader {
-        font-size: 4.5vw;
+        font-size: clamp(1.5rem, 2.5vw, 3rem);
         margin-left: 2.5%;
     }
 
     .list-group {
-        font-size: 2.7vw;
+        font-size: clamp(0.8rem,1.5vw,2rem);
         
     }
 

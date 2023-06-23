@@ -34,6 +34,7 @@
                 {{ equipment.description }}
             </div>
         </div>
+        
         <div class="object_img_container" v-if="imgSrc!=''">
             <div class="object_img">
                 <img :src="imgSrc" alt="img" />
@@ -41,7 +42,7 @@
         </div>
     </div>
     <div class="">
-        <button class="btnDelete btn-sm mt-3" @click="deleteEquipment">Удалить оборудования</button>
+        <button class="btnDelete btn-sm mt-3" @click="deleteEquipment">Удалить оборудование</button>
     </div>
   </div>
 </template>

@@ -1,3 +1,4 @@
+
 <template>
         <form @submit.prevent="loginMethod">
 
@@ -15,42 +16,26 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import  { router } from '@/router'
+
 export default {
-    data() {
+    data(){
         return {
             user: {
-                email: '',
-                password: ''
-            },
+            email: '',
+            password: '',
+        }
+        }
+        
+    },
+
+    methods: {
+        loginMethod(){
+            this.$store.dispatch('login', this.user)
         }
     },
-    methods: {
-        async loginMethod() {
-            var vm = this;
-            await axios.post('http://89.110.53.87:5003/Auth/api/Auth/SignIn', JSON.stringify(this.user),{
-                 headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then((response)=>{  
-                    return response;
-                })
-                .then(function(response) {
-                    const accessToken = response.data.accessToken;
-                    const refreshToken = response.data.refreshToken;
-                    vm.$cookies.set("accessUserToken",accessToken);
-                    vm.$cookies.set("refreshUserToken",refreshToken);
-                    if(response.status == '200'){
-                        location.assign("/#/equipmentList")
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                }); 
-        }
-    }
 }
+        
 </script>
 
 <style scoped>

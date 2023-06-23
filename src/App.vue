@@ -13,7 +13,7 @@
 import FooterCompVue from './components/Menu/FooterComp'
 import LeftMenuNavVue from './components/Menu/LeftMenuNav'
 import NavBarComp from './components/Menu/NavBarComp'
-import axios from 'axios'
+
 
 export default {
   name: 'App',
@@ -31,30 +31,41 @@ export default {
     }
   },
   mounted() {
-    if(this.$cookies.get('accessUserToken')) {
-      this.startRefreshTokenTimer();
+     if(this.$cookies.get('accessUserToken') && this.$cookies.get('refreshUserToken')) {
+        this.$store.commit('setAccessUserToken', this.$cookies.get('accessUserToken'))
+        this.$store.commit('setRefreshUserToken', this.$cookies.get('refreshUserToken'))
+        this.$store.dispatch('startRefreshTokenTimer')
+
     }
-      // setInterval(this.startRefreshTokenTimer(), ((this.expires) + (3 * 60 * 60 * 10000)) - Date.now() - (60 * 1000))
-  },
-  methods: {
-    async refreshToken() {
-            const vm = this
-            this.user = await axios.post('http://banaworld.ru:5003/Auth/api/Auth/Refresh/', this.$cookies.get('refreshUserToken'),
-              {headers: {
-                    'Content-Type': 'application/json'
-                }}
-              )
-            .then((response) => {
-              vm.$cookies.set("accessUserToken", response.data.accessToken)
-            });
-            this.startRefreshTokenTimer();
-        },
-    startRefreshTokenTimer() {
-              const jwtBase64 = this.$cookies.get('accessUserToken').split('.')[1];
-              const jwtToken = JSON.parse(atob(jwtBase64));
-              return this.expires = jwtToken.exp *1000;
-    }
+
   }
+      //setInterval(this.refreshToken (), ((this.expires.getTime()) - Date.now() - (60 * 1000) + (3 * 60 * 60 * 1000)))
+      // setInterval(this.refreshToken (),5000)
+  //},
+  //methods: {
+    // async refreshToken() {
+    //         // const vm = this
+    //         this.user = await axios.post('http://banaworld.ru:5003/Auth/api/Auth/Refresh/', this.$cookies.get('refreshUserToken'),
+    //           {headers: { 
+    //                 'Content-Type': 'application/json'
+    //             }})
+    //         console.log(this.user.data.accessToken)
+
+    //         // .then((response) => {
+    //         //   vm.$cookies.set("accessUserToken", response.data.accessToken)
+    //         //   if(response.status == '200') {
+    //         //     console.log('success')
+    //         //   } 
+    //         // });
+    //         this.startRefreshTokenTimer();
+    //     },
+    // startRefreshTokenTimer() {
+    //           const jwtBase64 = this.$cookies.get('accessUserToken').split('.')[1];
+    //           const jwtToken = JSON.parse(atob(jwtBase64));
+    //           console.log(jwtToken);
+    //           return this.expires = new Date(jwtToken.exp*1000);
+    // }
+  //}
 }
 </script>
 
