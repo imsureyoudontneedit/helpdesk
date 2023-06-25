@@ -32,7 +32,7 @@ import axios from 'axios';
       methods: {
         async getEquipment() {
   
-          await axios.get('http://89.110.53.87:5003/Equipment/Api/Equipment', {
+          await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment', {
           headers: {
             "Authorization": "Bearer " + this.$cookies.get('accessUserToken')}
         })
@@ -53,7 +53,7 @@ import axios from 'axios';
 
 
               equipment.attaches.forEach(async(attacheID) => {
-                await axios.get(`http://89.110.53.87:5003/Equipment/Api/Attach/${attacheID}`, {
+                await axios.get(`http://77.232.44.8:49120/Equipment/Api/Attach/${attacheID}`, {
                 headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
                 responseType: 'blob'
@@ -74,7 +74,7 @@ import axios from 'axios';
       },
        mounted() {
         this.getEquipment();
-        // this.equipmentList = axios.get('http://89.110.53.87:5003/Equipment/Api/Equipment', {
+        // this.equipmentList = axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment', {
         //   headers: {
         //     "Authorization": "Bearer " + store.state.accessUserToken}
         // }).then((response) => { return response});

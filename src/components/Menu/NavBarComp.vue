@@ -12,8 +12,10 @@
             </div>
             
             <div class="d-flex">
-
-                <button type="button" class="btn btn-light" v-if="this.$cookies.get('accessUserToken') != null" @click='remove' onclick="location.reload();">Выйти</button>
+              <div v-if="this.$cookies.get('accessUserToken') != null">
+                <button type="button" class="btn btn-light"  @click='remove' onclick="location.reload();">Выйти</button>
+                <router-link to='/qrPrinter'><img src="@/assets/img/icon/qr-code-scan.png" class="qrPrinter" alt=""></router-link>
+              </div>
                 <router-link to='login' v-if="$store.state.accessUserToken == null"><button class="btn btn-light" >Войти</button></router-link>
             </div>
         </div>
@@ -88,5 +90,9 @@ export default {
     width: clamp(1.5rem, 15vw, 10rem);
     height: clamp(1.5rem, 7vw, 4rem);
     font-size: clamp(0.75rem, 3vw, 2rem);
+  }
+  .qrPrinter {
+    width: 75px;
+    height: 75px;
   }
 </style>

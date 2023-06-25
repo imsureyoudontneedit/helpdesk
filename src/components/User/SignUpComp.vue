@@ -29,7 +29,7 @@ export default {
     methods: {
         async registrationMethod() {
             var vm = this;
-            await axios.post('http://89.110.53.87:5003/Auth/api/Auth/SignUp', JSON.stringify(this.user),{
+            await axios.post('http://77.232.44.8:49120/Auth/api/Auth/SignUp', JSON.stringify(this.user),{
                  headers: {
                     'Content-Type': 'application/json'
                 }

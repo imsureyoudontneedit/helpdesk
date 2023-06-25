@@ -47,7 +47,7 @@ export default {
 //   }
     methods: {
         async createAudience() {
-            await axios.post('http://89.110.53.87:5003/Equipment/Api/Binder', {
+            await axios.post('http://77.232.44.8:49120/Equipment/Api/Binder', {
                 name: this.floor+'.'+this.cabName,
                 audience: {
                     technicalTask: this.description

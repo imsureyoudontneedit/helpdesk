@@ -60,11 +60,11 @@ export default {
     
     data() {
         return {
-                type: '',
-                title: '',
-                description: '',
-                date: '',
-                model: '',
+            type: '',
+            title: '',
+            description: '',
+            date: '',
+            model: '',
             equipmentId: '',
             binder: this.$route.params.id,
             file: '',
@@ -75,7 +75,7 @@ export default {
     methods: {
         // http://banaworld.ru:5003/Equipment/Api/EquipmentType?skip=0&take=50
         async getEquipmentType() {
-            await axios.get('http://banaworld.ru:5003/Equipment/Api/EquipmentType?skip=0&take=50',{ 
+            await axios.get('http://77.232.44.8:49120/Equipment/Api/EquipmentType?skip=0&take=50',{ 
             headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')
             }},)
@@ -85,7 +85,7 @@ export default {
         },
         async createEquipment() {
             console.log()
-            await axios.post('http://89.110.53.87:5003/Equipment/Api/Equipment', {
+            await axios.post('http://77.232.44.8:49120/Equipment/Api/Equipment', {
                 title: this.title,
                 description: this.description,
                 purchaseDate: this.date,
@@ -108,7 +108,7 @@ export default {
             formData.append("File", this.file)
             formData.append("EquipmentId", this.equipmentId)
 
-            await axios.post('http://89.110.53.87:5003/Equipment/Api/Attach', formData, {headers: {
+            await axios.post('http://77.232.44.8:49120/Equipment/Api/Attach', formData, {headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': "Bearer " + this.$cookies.get('accessUserToken')
             }}).then((response) => {

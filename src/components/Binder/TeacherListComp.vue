@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         async getBinderList() {
-            await axios.get('http://banaworld.ru:5003/Equipment/Api/Binder',
+            await axios.get('http://77.232.44.8:49120/Equipment/Api/Binder',
             {headers: {
                 'Authorization': "Bearer " + this.$cookies.get('accessUserToken')
             }

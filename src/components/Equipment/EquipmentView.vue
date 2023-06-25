@@ -27,6 +27,9 @@
             </div>
             </div>
     </div>
+    <div class="qr-add-stash">
+        <button class="btn btn-sm" @click="addQrToStash">Добавить Qr код</button>
+    </div>
     <div class="object_container">
         <div class="object_desc_container">
             <strong>Описание и примечания:</strong>
@@ -61,12 +64,13 @@ export default {
             binder:{},
             size: 200,
             imgSrc:"",
-            qr: `http://banaworld.ru:5003/Equipment/Api/Equipment/${this.$route.params.id}`,
+            qr: `http://77.232.44.8:49120/Equipment/Api/Equipment/${this.$route.params.id}`,
+            // this.$route.params.id push to localStorage()
         }
     },
     methods: {
         async getEquipmentById(){
-            const response = await axios.get(`http://89.110.53.87:5003/Equipment/Api/Equipment/${this.$route.params.id}`, {
+            const response = await axios.get(`http://77.232.44.8:49120/Equipment/Api/Equipment/${this.$route.params.id}`, {
                 headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')}
             })
@@ -79,7 +83,7 @@ export default {
         async getAttachesById(){
 
             this.attachesID.forEach(async(attacheID) => {
-                await axios.get(`http://89.110.53.87:5003/Equipment/Api/Attach/${attacheID}`, {
+                await axios.get(`http://77.232.44.8:49120/Equipment/Api/Attach/${attacheID}`, {
                 headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
                 responseType: 'blob'
@@ -97,7 +101,7 @@ export default {
             this.showModal =!this.showModal
         },
         async deleteEquipment() {
-            await axios.delete(`http://banaworld.ru:5003/Equipment/Api/Equipment/${this.equipment.id}`,{
+            await axios.delete(`http://77.232.44.8:49120/Equipment/Api/Equipment/${this.equipment.id}`,{
                  headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "Bearer " + this.$cookies.get('accessUserToken')
@@ -106,7 +110,18 @@ export default {
                 if(response.status == '200')
                     location.assign("/#/equipmentList")
             }) 
-            // 
+            // #/qrPrinter
+        },
+        addQrToStash(){
+            const qrArray = JSON.parse(localStorage.getItem('qrStash')) ? JSON.parse(localStorage.getItem('qrStash')) : {};
+            const qrId = this.$route.params.id
+            if (qrArray[qrId]){
+                return
+            }
+            // console.log({this.$route.params.id: this.equipment.title})
+            
+            localStorage.setItem('qrStash', JSON.stringify({...qrArray,  [qrId]: [qrId, this.equipment.title]}))
+            
         }
     },
     mounted() {

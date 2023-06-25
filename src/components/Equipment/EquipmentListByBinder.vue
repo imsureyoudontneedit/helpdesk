@@ -46,14 +46,14 @@ export default {
             $route: this.$route,
             equipment: [],
             binder: '',
-            qr: `http://banaworld.ru:5003/Equipment/Api/Binder/${this.$route.params.id}`,
+            qr: `http://77.232.44.8:49120/Equipment/Api/Binder/${this.$route.params.id}`,
             showModal: false,
             size: 200,
         }
     },
     methods: {
         async getEquipment(){
-            const response = await axios.get('http://89.110.53.87:5003/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`, {
+            const response = await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`, {
                 headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
             })

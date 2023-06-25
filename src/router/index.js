@@ -7,6 +7,7 @@ import EquipmentViewComp from '@/components/Equipment/EquipmentView.vue'
 import EquipmentListByBinder from '@/components/Equipment/EquipmentListByBinder.vue'
 import BinderListComp from '@/components/Binder/BinderListComp.vue'
 import AudienceCreateComp from '@/components/Binder/CreateAudienceComp.vue'
+import QRcodePrinter from '@/components/Addition/QRcodePrinter.vue'
 const routes = [
   
   {
@@ -48,6 +49,11 @@ const routes = [
     path: '/createAudience',
     name: 'createAudience',
     component: AudienceCreateComp
+  },
+  {
+    path: '/qrPrinter',
+    name: 'qrPrinter',
+    component: QRcodePrinter
   }
 ]
 

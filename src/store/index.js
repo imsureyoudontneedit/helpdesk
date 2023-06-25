@@ -11,7 +11,7 @@ export default createStore({
     }),
     actions: {
         async login({state, dispatch, commit},userData){
-            commit('setUser', await axios.post('http://89.110.53.87:5003/Auth/api/Auth/SignIn', JSON.stringify(userData),{
+            commit('setUser', await axios.post('http://77.232.44.8:49120/Auth/api/Auth/SignIn', JSON.stringify(userData),{
                 headers: {
                    'Content-Type': 'application/json'
                }
@@ -32,7 +32,7 @@ export default createStore({
         async refreshToken({state, dispatch, commit}) {
             
             dispatch('stopRefreshTokenTimer');
-            commit('setUser',await axios.post('http://banaworld.ru:5003/Auth/api/Auth/Refresh/',  state.refreshUserToken ,
+            commit('setUser',await axios.post('http://77.232.44.8:49120/Auth/api/Auth/Refresh/',  state.refreshUserToken ,
             {headers: { 
                 'Content-Type': 'application/json'
             }}));
@@ -49,7 +49,7 @@ export default createStore({
     
             // set a timeout to refresh the token a minute before it expires
             const expires = new Date(jwtToken.exp * 1000);
-            const timeout = expires.getTime() - Date.now() - (60 * 1000) + (3 * 60 * 60 * 1000);
+            const timeout = expires.getTime() - Date.now() - (60 * 1000);
             if (!state.refreshTokenTimeout){
                 commit('setRefreshUserTokenTimeout',
                 setTimeout(()=>{dispatch('refreshToken')}, timeout)); 
