@@ -53,7 +53,7 @@ export default {
     },
     methods: {
         async getEquipment(){
-            const response = await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`, {
+            const response = await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`+'skip=0&take=20000000', {
                 headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
             })
