@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         async getBinderList() {
-            await axios.get('http://77.232.44.8:49120/Equipment/Api/Binder?skip=0&take=100',
+            await axios.get('http://77.232.44.8:49120/Equipment/Api/Binder?skip=0&take=100000',
             {headers: {
                 'Authorization': "Bearer " + this.$cookies.get('accessUserToken')
             }

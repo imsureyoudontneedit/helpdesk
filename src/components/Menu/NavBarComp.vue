@@ -10,11 +10,10 @@
               <div class="username"></div>
               <img src="" alt="">
             </div>
-            
             <div class="d-flex">
               <div v-if="this.$cookies.get('accessUserToken') != null">
                 <button type="button" class="btn btn-light"  @click='remove' onclick="location.reload();">Выйти</button>
-                <router-link to='/qrPrinter'><img src="@/assets/img/icon/qr-code-scan.png" class="qrPrinter" alt=""></router-link>
+                <router-link to='/qrPrinter'><div class="position-relative d-inline-block"><img src="@/assets/img/icon/qr-code-scan.png" class="qrPrinter" alt="" ><span class='qrPrinterCounter'>{{$store.state.qrNumber}}</span> </div></router-link>
               </div>
                 <router-link to='login' v-if="$store.state.accessUserToken == null"><button class="btn btn-light" >Войти</button></router-link>
             </div>
@@ -29,6 +28,7 @@ import router from '@/router'
 export default {
     data() {
       return {
+        
         accessUserToken: this.$cookies.get("accessUserToken")
       }
     },
@@ -39,9 +39,9 @@ export default {
         vm.$cookies.remove("refreshUserToken")
         store.commit('accessUserToken','')
         store.commit('refreshUserToken','')
-      }
+      },
     },
-    mounted() {
+    mounted() {    
       const accessToken=this.$cookies.get('accessUserToken');
       const refreshToken=this.$cookies.get('refreshUserToken');
       if(!accessToken || !refreshToken){
@@ -51,7 +51,7 @@ export default {
         store.commit('refreshUserToken',refreshToken);
       }
         
-    }
+    },
 }
 </script>
 
@@ -94,5 +94,18 @@ export default {
   .qrPrinter {
     width: 75px;
     height: 75px;
+    position: relative;
+  }
+  .qrPrinterCounter{
+    text-align:center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute !important;
+    z-index:999 !important;
+    right: 0 !important;
+    top: 0 !important;
+    background: white;
+    color: black;
   }
 </style>

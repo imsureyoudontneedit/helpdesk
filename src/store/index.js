@@ -4,6 +4,7 @@ import { router } from '@/router/index.js';
 import VueCookies from 'vue-cookies'
 export default createStore({
     state: ()=> ({
+        qrNumber: Object.keys(JSON.parse(localStorage.getItem('qrStash')|| '{}')).length,
         user: null,
         accessUserToken: null,
         refreshUserToken: null,
@@ -61,6 +62,12 @@ export default createStore({
         }
     },
     mutations: {
+        incrementQrNumber(state){
+            state.qrNumber++;
+        },
+        deIncrementQrNumber(state){
+            state.qrNumber--;
+        },
         setAccessUserToken(state, accessUserToken) {
             state.accessUserToken = accessUserToken;
         },

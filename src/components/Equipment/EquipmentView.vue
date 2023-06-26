@@ -107,8 +107,20 @@ export default {
                     'Authorization': "Bearer " + this.$cookies.get('accessUserToken')
                 }
             }).then((response) => {
-                if(response.status == '200')
+                if(response.status == '200'){
+                    let qrArray = JSON.parse(localStorage.getItem('qrStash'))
+                    const qrId = this.$route.params.id
+                    if (qrArray[qrId]){
+                        delete qrArray[qrId]
+                        this.$store.commit('deIncrementQrNumber')
+                        if(Object.keys(qrArray).length == 0)
+                            localStorage.removeItem('qrStash')
+                        else
+                            localStorage.setItem('qrStash',JSON.stringify(qrArray))
+                    }
                     location.assign("/#/equipmentList")
+                }
+                    
             }) 
             // #/qrPrinter
         },
@@ -116,17 +128,16 @@ export default {
             const qrArray = JSON.parse(localStorage.getItem('qrStash')) ? JSON.parse(localStorage.getItem('qrStash')) : {};
             const qrId = this.$route.params.id
             if (qrArray[qrId]){
-                return
+                return 
             }
             // console.log({this.$route.params.id: this.equipment.title})
-            
+            this.$store.commit('incrementQrNumber')
             localStorage.setItem('qrStash', JSON.stringify({...qrArray,  [qrId]: [qrId, this.equipment.title]}))
             
         }
     },
     mounted() {
         this.getEquipmentById();
-
     },
     components: {
         QrcodeVue,

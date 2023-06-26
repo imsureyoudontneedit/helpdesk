@@ -1,10 +1,11 @@
 <template>
-  <div class="wrapper mt-5 ms-4 d-flex flex-wrap justify-content-center">
-    <div class="status" v-if="this.status">Идет загрузка...</div>
-    <div v-else v-for="equipmentItem in equipmentList" :key="equipmentItem.id" class="mb-4 ms-3">
+  <div class="wrapper mt-5 ms-4 w-100">
+    <div class="d-flex flex-wrap justify-content-around">
+      <div class="status" v-if="this.status">Идет загрузка...</div>
+    <div v-else v-for="equipmentItem in equipmentList" :key="equipmentItem.id" class="mb-4">
 
        
-        <div class="card text-center ms-3 mb-4" >
+        <div class="card text-center" >
           <div class="card-body">
             <img class="card-img-top equipImg" :src="equipmentItem.imgSrc ? equipmentItem.imgSrc : 'https://via.placeholder.com/250'" alt="Изображение оборудования" />
             <h5 class="card-title">{{ equipmentItem.title }}</h5>
@@ -13,6 +14,8 @@
           </div>
         </div>
     </div>
+    </div>
+    
   </div>
 
 </template>
@@ -32,7 +35,7 @@ import axios from 'axios';
       methods: {
         async getEquipment() {
   
-          await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment', {
+          await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment?skip=0&take=2000000', {
           headers: {
             "Authorization": "Bearer " + this.$cookies.get('accessUserToken')}
         })

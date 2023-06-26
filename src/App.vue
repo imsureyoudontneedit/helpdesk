@@ -28,6 +28,7 @@ export default {
       refreshTokenTimeout: null,
       expires: null,
       timer: '',
+      qrNumber:1,
     }
   },
   mounted() {
