@@ -41,7 +41,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-        <modal-window :show="showModal" @close="showModal = false">
+        <modal-window :show="showModal" @close="showModal = false" @goto="goto">
             <template #header>
                 <h3>Оборудование добавлено</h3>
             </template>
@@ -121,6 +121,10 @@ export default {
         },
         handleFileUpload(){
             this.file = this.$refs.file.files[0];
+        },
+        goto() {
+            this.showModal = false;
+            location.assign(`#/equipmentView/${this.equipmentId}`)
         }
     },
     components: {

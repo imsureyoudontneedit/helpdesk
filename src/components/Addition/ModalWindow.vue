@@ -2,7 +2,6 @@
     export default {
         props: {
             show: Boolean,
-            likes: Number
         }
     }
 </script>
@@ -22,9 +21,13 @@
         <div class="modal-footer">
           <slot name="footer">
             <button
-              class="modal-default-button"
+              class="modal-default-button btn btn-success"
               @click="$emit('close')"
             >Закрыть</button>
+            <button
+              class="modal-default-button mx-3 btn btn-success"
+              @click="$emit('goto')"
+            >Перейти</button>
           </slot>
         </div>
       </div>
