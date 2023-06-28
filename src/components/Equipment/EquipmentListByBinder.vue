@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper mt-4 ms-5 w-100">
+  <div class="wrapper mt-4 w-100">
     <h2> Оборудование аудитории {{`${this.binder.name}`}}</h2>
     <router-link :to="`/createEquipment/${$route.params.id}`" class="btn">Добавить оборудование</router-link>
     <div class="generator mt-3">
@@ -17,18 +17,18 @@
             </div>
             </div>
     </div>
-    <div class="d-flex justify-content-center flex-wrap">
-        <div class=" ms-3 mb-4" v-for="equipmentbyBind in equipment" :key="equipmentbyBind">
-            <div class="card text-center" style="">
-                <div class="card-body">
-
-            <h5 class="card-title">{{ equipmentbyBind.title }}</h5>
-
-            <router-link class="btn btn-primary " :to="`/equipmentView/${equipmentbyBind.id}`">{{equipmentbyBind.title}}</router-link>
-          </div>
-        </div>
+    <div class="types d-flex  flex-wrap">
+        <div class="dropdown mt-4 ms-4 " v-for="eqType in types" :key="eqType.name">
+        <button class="btn btn-secondary dropdown-toggle" type="button" @click='showModalType'>
+            {{eqType.name}}
+        </button>
+        <ul class="dropdown-menu position-relative  text-center ">
+            <li class="" v-for="equipmentbyBind in equipment" :key="equipmentbyBind" ><router-link v-if="equipmentbyBind.type.name == eqType.name" class="btn btn-primary mb-2 mx-1 " :to="`/equipmentView/${equipmentbyBind.id}`">{{equipmentbyBind.title}}</router-link>  </li>
+            {{equipmentbyBind}}
+        </ul>
     </div>
     </div>
+
     
     
   </div>
@@ -48,12 +48,13 @@ export default {
             binder: '',
             qr: `http://77.232.44.8:49120/Equipment/Api/Binder/${this.$route.params.id}`,
             showModal: false,
-            size: 200,
+            size: 300,
+            types: [],
         }
     },
     methods: {
         async getEquipment(){
-            const response = await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`+'skip=0&take=20000000', {
+            const response = await axios.get('http://77.232.44.8:49120/Equipment/Api/Equipment/?binderId='+`${this.$route.params.id}`+'&skip=0&take=20000000', {
                 headers: {
                     "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
             })
@@ -65,8 +66,33 @@ export default {
 
         },
         showModalToggle(){
-            this.showModal =!this.showModal
+            this.showModal =!this.showModal;
+        },
+        async getTypes(){
+            await axios.get('http://77.232.44.8:49120/Equipment/Api/EquipmentType?skip=0&take=100', {
+                headers: {
+                    "Authorization": "Bearer " + this.$cookies.get('accessUserToken')},
+            }).then (response=>{
+                this.types = response.data
+            })
+        },
+        showModalType(event){
+            const menu=event.target.parentElement.querySelector('.dropdown-menu')
+            menu.classList.toggle('show')
+            menu.querySelectorAll('li').forEach(element => {
+
+                if (element.innerHTML=='<!--v-if-->' || element.innerHTML==''){
+                    element.remove();
+                }
+            });
+            if(menu.innerHTML == ' '){
+              menu.innerHTML = 'Оборудование отсутствует'
+              
+            }
         }
+    },
+    beforeMount() {
+        this.getTypes()
     },
     mounted() {
         this.getEquipment();
@@ -83,7 +109,12 @@ export default {
     .btn {
         background-color: #6fbfee;
         border-color: none;
-        width: max-content;
         border-radius: 25px;
+    }
+
+    .dropdown-menu.show{
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 </style>

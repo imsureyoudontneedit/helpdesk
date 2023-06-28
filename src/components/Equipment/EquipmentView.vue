@@ -62,7 +62,7 @@ export default {
             attachesID: [],
             attaches: [],
             binder:{},
-            size: 200,
+            size: 300,
             imgSrc:"",
             qr: `http://77.232.44.8:49120/Equipment/Api/Equipment/${this.$route.params.id}`,
             // this.$route.params.id push to localStorage()

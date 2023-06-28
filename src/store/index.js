@@ -9,6 +9,7 @@ export default createStore({
         accessUserToken: null,
         refreshUserToken: null,
         refreshUserTokenTimeout: null,
+        page: 1,
     }),
     actions: {
         async login({state, dispatch, commit},userData){
@@ -76,6 +77,9 @@ export default createStore({
         },
         setRefreshUserTokenTimeout(state, refreshUserTokenTimeout) {
             state.refreshUserTokenTimeout = refreshUserTokenTimeout
+        },
+        setPage(state, page) {
+            state.page = page
         },
         setUser(state, user) {
             state.user = user;

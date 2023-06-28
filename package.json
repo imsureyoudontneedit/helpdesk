@@ -16,6 +16,7 @@
     "vue-cookies": "^1.8.3",
     "vue-ls": "^4.2.0",
     "vue-router": "^4.1.6",
+    "vuejs-paginate-next": "^1.0.2",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

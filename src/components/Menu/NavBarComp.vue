@@ -37,6 +37,7 @@ export default {
         const vm = this;
         vm.$cookies.remove("accessUserToken")
         vm.$cookies.remove("refreshUserToken")
+        localStorage.removeItem('page')
         store.commit('accessUserToken','')
         store.commit('refreshUserToken','')
       },
